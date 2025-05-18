@@ -1,9 +1,14 @@
-<script setup>
 
+<script setup>
+// layout
+import Layout from '@/Layouts/Default.vue';
 </script>
 
 <template>
-    <div>
-        <h1>Hello World</h1>
+    <Layout>
+            <div class="home">
+        <h1>Welcome to Home Page</h1>
     </div>
+    </Layout>
+
 </template>

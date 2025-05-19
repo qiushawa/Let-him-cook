@@ -2,13 +2,13 @@
 <script setup>
 // layout
 import Layout from '@/Layouts/Default.vue';
+defineProps({
+    keyword:String,
+})
 </script>
 
 <template>
     <Layout>
-            <div class="home">
-        <h1>Welcome to Home Page</h1>
-    </div>
+        {{ keyword }}
     </Layout>
-
 </template>

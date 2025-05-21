@@ -2,24 +2,29 @@
 import { ref } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import SearchInput from "../Components/SearchInput.vue";
+import CartButton from '../Components/CartButton.vue';
 import Footer from "../Components/Footer.vue";
 
+defineProps({
+    title: {
+        type: String,
+        default: '讓兄弟組'
+    },
+    description: {
+        type: String,
+        default: '🗣️讓你輕鬆自在組裝電腦🔥'
+    },
+    hotSearch: {
+        type: Array,
+        default: () => []
+    }
+
+});
+
 const keyword = ref('');
-const datas = [
-    "機械鍵盤 ",
-    "人體工學滑鼠 ",
-    "電腦螢幕 ",
-    "RTX-5090 ",
-    "9950X3D ",
-    "i9-14900KS "
-];
-
-// 表單送出處理
 function onSubmit(event) {
-    event.preventDefault(); // 避免表單刷新
-    if (!keyword.value.trim()) return; // 空字串則不處理
-
-    // 範例：跳轉到 /search 頁面，帶上關鍵字
+    event.preventDefault();
+    if (!keyword.value.trim()) return;
     router.get('/', { keyword: keyword.value });
 }
 </script>
@@ -27,26 +32,39 @@ function onSubmit(event) {
 <template>
     <div>
         <header class="bg-gray-800 text-white">
-            <nav class="flex items-center justify-end p-1 mx-auto">
+            <nav class="flex items-center justify-end p-1 mx-auto  py-1" aria-label="登入註冊導覽">
                 <a href="/" class=" hover:underline">登入 | 註冊</a>
             </nav>
 
-            <nav class="items-center justify-between p-4 max-w-screen-lg mx-auto">
+            <nav class="items-center justify-between p-4  max-w-screen-xl mx-auto  py-0" aria-label="主導覽">
                 <div class="flex space-x-6 items-center z-40">
-                    <Link href="/" class="text-4xl font-bold mx-1">讓兄弟組</Link>
-                    <form @submit="onSubmit" class="max-w-screen-md mx-auto flex-[11]">
+                    <div class="flex flex-col">
+                        <Link href="/" class="text-5xl font-bold mx-auto" style="font-family: '標楷體', serif;">{{ title }}</Link>
+                        <p class="text-m text-gray-300 mx-auto" style="font-family: '標楷體', serif;">{{ description }}</p>
+                    </div>
+
+                    <form @submit="onSubmit" class="max-w-screen-md flex-[11]">
                         <SearchInput v-model="keyword" placeholder="輸入關鍵字" />
+
                     </form>
+                    <div class="flex flex-row gap-1 mx-4">
+                        <CartButton :count="99"/>
+                    </div>
                 </div>
             </nav>
-            <nav class="items-center justify-content p-4 max-w-screen-lg mx-auto" style="text-align: center;">
-                <span v-for="n in datas">| <a href="/">{{ n }}</a> </span>
+            <nav class="items-center justify-content p-4 mx-auto  py-2" style="text-align: center;"
+                aria-label="熱門搜尋">
+                <span v-for="(n, idx) in hotSearch" :key="idx" class="text-sm text-gray-300 ml-2">
+                    <a :href="'/?keyword=' + encodeURIComponent(n)">{{ n }}</a>
+                </span>
             </nav>
         </header>
 
-        <main class="p-4 max-w-screen-lg mx-auto">
-            <slot/>
+        <main class="p-4 max-w-screen-xl mx-auto">
+            <slot />
         </main>
         <Footer />
     </div>
 </template>
+
+

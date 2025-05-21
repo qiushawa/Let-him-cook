@@ -7,10 +7,6 @@ const props = defineProps({
     links: {
         type: Array,
         default: () => [
-            { label: '關於我們', href: '#' },
-            { label: '隱私政策', href: '#' },
-            { label: '授權條款', href: '#' },
-            { label: '聯絡我們', href: '#' },
         ],
     },
     year: {
@@ -28,8 +24,8 @@ const props = defineProps({
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ siteName
+
+                    <span class="self-center text-4xl font-semibold whitespace-nowrap dark:text-white" style="font-family: '標楷體', serif;">{{ siteName
                         }}</span>
                 </a>
                 <ul
